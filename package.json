@@ -9,8 +9,14 @@
   "author": "Matt Heininger",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-bearer-token": "^2.2.0",
+    "jquery": "^3.3.1",
+    "querystring": "^0.2.0",
     "request": "^2.88.0"
   }
 }
