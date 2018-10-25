@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <script>
+    function playlistSelected(id){
+    console.log(id);
+    $.ajax({
+        type: 'GET', 
+        url: "http://localhost:3000/playlist/" + id
+    });
+    location.href='http://localhost:3000/liveplaylist/'
+    }
+    </script>
+    
+    <h1>This is the callback page.<h1>
+
+            <% playlistInfo.forEach(function(playlist){ %>
+                <li id="<%= playlist['id'] %>" onclick="playlistSelected(id)"><%= playlist["name"] %> </li>
+            <% })   %>
+    
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            
+              
+  </body>
+</html>
+

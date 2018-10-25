@@ -4,12 +4,22 @@ const request = require("request");
 const cookieParser = require("cookie-parser");
 const querystring = require("querystring");
 const cors = require("cors");
+const {google} = require('googleapis');
+var youtube = google.youtube({
+  version: 'v3',
+  auth: "AIzaSyAqLc08L_xp-LB4VRUUM0aLIzR9DlX2LWs"
+});
 app.set("view engine", "ejs");
 
-const client_id = 'CLient id';
-const client_secret = 'client secret';
+const client_id = '28c2c40fbdb6448b9a2ad2f3de6319ce';
+const client_secret = '823ca0625dc847499140590795ff14ce';
 const redirect_uri = 'http://localhost:3000/callback';
 let access_token = '';
+let playlistInfo = [];
+let youtubePlaylist = [];
+
+let YT = null;
+
 var generateRandomString = function(length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -89,8 +99,8 @@ var generateRandomString = function(length) {
   
           // use the access token to access the Spotify Web API
           request.get(options, function(error, response, body) {
-            let playlistInfo = response.body.items;
-            res.render("callback", {playlistInfo: playlistInfo});
+            playlistInfo = response.body.items;
+            res.redirect("/playlists");
             // console.log(playlistInfo);
             
             
@@ -139,8 +149,8 @@ var generateRandomString = function(length) {
 app.get("/", function(req, res){
     res.send("yo");
 });
-
-
+// grab songs from playlist
+let songs = [];
 app.get("/playlist/:id", function(req, res){
   let id = req.params.id;
   var options = {
@@ -148,18 +158,54 @@ app.get("/playlist/:id", function(req, res){
     headers: { 'Authorization': 'Bearer ' + access_token },
     json: true
   };
-console.log(access_token); 
-console.log(id);
+  let searchTerms = [];
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
-    let songs = response.body.items;
+    songs = response.body.items;
     // log artist name and track name from array to send "artist name" + "track name" + live to youtube api
-    console.log(songs);
-    console.log(songs[0].track.artists[0].name);
+    
+    for (let i = 0; i < songs.length; i++){
+      searchTerms.push(songs[i].track.artists[0].name + " " + songs[i].track.name + " live");
+    }
+    request.get(options, function(error, response, body) {  
+    res.redirect("/playlists");
+    console.log(searchTerms);
+    // use search terms to grab top result for each from youtube
+    // possible problem is that data is being grabbed from within a for loop
+    for (let i = 0; i < searchTerms.length; i++){
+      youtube.search.list({
+      part: 'snippet',
+      q: searchTerms[i]
+    }, function (err, data) {
+      if (err) {
+        console.error('Error: ' + err);
+      }
+      if (data) {
+        let youtubeData = data;
+        youtubePlaylist = JSON.stringify(youtubeData.data.items[0].id.videoId);
+        
+        console.log(youtubePlaylist);
+      }
+      
+      
+    });
+    console.log(youtubePlaylist);
+    }
+    
   });
+  });
+  
 });
 
+app.get("/liveplaylist", function(req, res){
+  res.render("player", {youtubePlaylist: youtubePlaylist});
+  console.log(youtubePlaylist);
+});
 
+app.get("/playlists", function(req, res){
+  res.render("playlists", {playlistInfo: playlistInfo});
+  
+});
 
 app.listen(3000, function(){
     console.log("Server running");
