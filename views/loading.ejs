@@ -1,10 +1,99 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style>
+            h1{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            body{
+                background-color: black;
+            } 
+           
+        #loading1{
+            animation: show1 5s;
+            opacity: 0;
+        }
+
+        @keyframes show1 {
+           0% {
+               opacity: 0;
+           }
+           25% {
+               opacity: 1;
+           }
+        }
+        #loading2{
+            animation: show2 5s;
+            opacity: 0;
+        }
+
+        @keyframes show2 {
+           0% {
+               opacity: 0;
+           }
+           50% {
+               opacity: 1;
+           }
+        }
+        #loading3{
+            animation: show3 5s;
+            opacity: 0;
+        }
+
+        @keyframes show3 {
+           0% {
+               opacity: 0;
+           }
+           75% {
+               opacity: 1;
+           }
+        }
+        #loading4{
+            animation: show4 5s;
+            opacity: 0;
+        }
+
+        @keyframes show4 {
+           0% {
+               opacity: 0;
+           }
+           80% {
+               opacity: 1;
+           }
+        }
+        #loading5{
+            animation: show5 6s;
+            opacity: 0;
+        }
+
+        @keyframes show5 {
+           95%{
+               opacity: 1;
+           }
+           
+        }
+        </style>
+        
+
+
+    </head>
     <script>
         setTimeout(function () {
            window.location = "/liveplaylist";
         }, 5000)
-      </script>
-    <h1>Loading your playlist</h1>
+    </script>
+   
+    <body>
+        <div class="bg-success">
+            <h1 class="text-success">Building your playlist<span id="loading1">.</span><span id="loading2">.</span><span id="loading3">.</span><span id="loading4">.</span><span id="loading5">✔</span></h1>
+        </div>
+        
+
+    </body>
+    
 
 
 </html>

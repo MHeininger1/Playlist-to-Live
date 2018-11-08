@@ -7,15 +7,15 @@ const cors = require("cors");
 const {google} = require('googleapis');
 var youtube = google.youtube({
   version: 'v3',
-  auth: "secret"
+  auth: "AIzaSyAqLc08L_xp-LB4VRUUM0aLIzR9DlX2LWs"
 });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
      .use(cors())
      .use(cookieParser());
 
-const client_id = 'secret';
-const client_secret = 'secret';
+const client_id = '28c2c40fbdb6448b9a2ad2f3de6319ce';
+const client_secret = '823ca0625dc847499140590795ff14ce';
 const redirect_uri = 'http://localhost:3000/callback';
 let access_token = '';
 let playlistInfo = [];
@@ -147,9 +147,9 @@ app.get('/refresh_token', function(req, res) {
 });
  
 app.get("/", function(req, res){
-    res.send("yo");
+    res.render("homepage");
 });
-
+let playlistName;
 let songs = [];
 let searchTerms = [];
 app.get("/playlist/:id", function(req, res){
@@ -165,12 +165,15 @@ app.get("/playlist/:id", function(req, res){
   request.get(options, async function(error, response, body) {
     songs = response.body.items;
     
-    
     await getSearchTerms();
     await getYoutubeIds();
     
    
   });
+});
+let name;
+app.get("/playlists/:name", function(req, res){
+  name = req.params.id;
 });
 app.get("/loading", function(req, res){
   res.render("loading");
@@ -178,6 +181,7 @@ app.get("/loading", function(req, res){
 function getSearchTerms(){
   // log artist name and track name from array to send "artist name" + "track name" + live to youtube api
   return new Promise(resolve => {
+    searchTerms = [];
     for (let i = 0; i < songs.length; i++){
       searchTerms.push(songs[i].track.artists[0].name + " " + songs[i].track.name + " live");
     } 
@@ -191,6 +195,7 @@ function getYoutubeIds(){
   // use search terms to grab top result for each from youtube
   return new Promise(resolve => {
   console.log(searchTerms.length);
+  youtubePlaylist = [];
   for (let i = 0; i < searchTerms.length; i++){
     youtube.search.list({
     maxResults: 1,
