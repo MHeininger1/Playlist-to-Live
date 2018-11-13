@@ -12,7 +12,8 @@
             li{
                 list-style: none;
                 height: 175px;
-                margin-bottom: 10px; 
+                margin-bottom: 10px;
+                width: 200px; 
             }
             #title{
                 position: fixed;
@@ -33,12 +34,12 @@
             }
             button{
                 margin: 5px;
-                width: 50%;
                 height: 100%;
                 width: 200px;    
             }
             #playlistNames{
                 width: 200px;
+                margin-right: 20px;
             }
             .btn{
                 white-space:normal !important;
@@ -48,6 +49,7 @@
                 border-radius: 15px;
                 font-size: 20px;                     
             }
+            
 
         </style>
             
@@ -69,7 +71,7 @@
     <div class="container">
         <div id="playlists" class="row">
             <% playlistInfo.forEach(function(playlist){ %>
-            <div id="playlistNames" class="col">
+            <div id="playlistNames" class="col-lg-auto">
                 <li id="<%= playlist['id'] %>" onclick="playlistSelected(id)"><button type="button" class="btn btn-success" ><%= playlist["name"] %></button></li>
             </div>
             <% })   %>
