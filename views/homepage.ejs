@@ -1,40 +1,88 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
         <style>
             body{
                 background-color: black;
+                font-family: 'Roboto Slab', serif;
             }
             #title{
                 margin: auto;
-                width: 50%;
+                width: 100%;
                 text-align: center;
-                left: 50%;
-                margin-top: 5%;
+                margin-top: 4%;
+                font-size: 20px;
+            }
+            h1{
+                font-size: 50px;
             }
             #sign-in{
                 position: fixed;
-                top: 50%;
+                bottom: 0;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%);
                 text-align: center;
-            } 
+                background-color: black;
+                width: 100%;
+                padding-top: 10px;
+                font-size: 18px;
+            }
+            img{
+                border-style: solid;
+                border-width: 2px;
+                border-radius: 10px;
+            }
+            #examples{
+                margin-top: 100px;
+                margin-bottom: 200px;
+            }
+
+            #examples div{
+                font-size: 25px;
+                width: 340px;
+                text-align: center;
+            }
+            button{
+                margin-bottom: 30px;
+            }
+            .btn{
+                width: 200px;
+                height: 80px;
+                font-size: 25px;
+            }
+            .col-centered{
+                float: none;
+                margin: 0 auto;
+            }
+            
         </style>
     </head>
 <body>
 <div id="title">
     <h1 class="text-success">Playlist to Live</h1>
+    <p class="text-success">Listen to your favorite songs, live!</p>
 </div>
-
+<div class="container">
+<div id="examples" class="row">
+    <div class="col-lg-4 col-md-10 col-centered">
+        <p class="text-success">Sign-In to Spotify</p>
+        <!-- replace this image -->
+        <img class="border-success" id="img1" src="images\spotify2.PNG">
+    </div>
+    <div class="col-lg-4 col-md-8 col-centered">
+        <p class="text-success">Choose Your Playlist</p> 
+       <img class="border-success" id="img2" src="images\playlists2.PNG"> 
+    </div>
+    <div class="col-lg-4 col-md-8 col-centered">
+        <p class="text-success">Listen!</p>
+        <img class="border-success" id="img3" src="images\live2.PNG">
+    </div>
+</div>
+</div>
 <div id="sign-in">
-   <button onclick=location.href='http://localhost:3000/login/' type="button" class="btn btn-success">Choose Your Playlist</button>
-   <p class="text-success">(If this is your first time using Playlist to Live you will be asked to sign in through Spotify)</p> 
+   <button onclick=location.href='http://localhost:3000/login/' type="button" class="btn btn-success">Listen Now</button>
+   <p class="text-success">Note: Sign-in is handled through Spotify. Playlist to Live does not access your Spotify username or password.</p> 
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>    
 </body>
-
-
-
-
-
 </html>

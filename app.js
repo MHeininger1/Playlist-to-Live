@@ -13,7 +13,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
      .use(cors())
      .use(cookieParser());
-
+app.use('/images', express.static(__dirname + '/Images'));
 const client_id = 'secret';
 const client_secret = 'secret';
 const redirect_uri = 'http://localhost:3000/callback';
@@ -60,7 +60,6 @@ app.get('/callback', function(req, res) {
   
   // application requests refresh and access tokens
   // after checking the state parameter
-    
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -97,19 +96,12 @@ app.get('/callback', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-  
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           playlistInfo = response.body.items;
           res.redirect("/playlists");
-            // console.log(playlistInfo);
-            
-            
-                     
-        });
-  
-          
-          
+            // console.log(playlistInfo);              
+        });          
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -120,9 +112,7 @@ app.get('/callback', function(req, res) {
   }
    
 });
-  
- 
-  
+   
 app.get('/refresh_token', function(req, res) {
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
@@ -149,7 +139,7 @@ app.get('/refresh_token', function(req, res) {
 app.get("/", function(req, res){
     res.render("homepage");
 });
-let playlistName;
+
 let songs = [];
 let searchTerms = [];
 app.get("/playlist/:id", function(req, res){
@@ -166,18 +156,16 @@ app.get("/playlist/:id", function(req, res){
     songs = response.body.items;
     
     await getSearchTerms();
-    await getYoutubeIds();
+    getYoutubeIds();
     
    
   });
 });
-let name;
-app.get("/playlists/:name", function(req, res){
-  name = req.params.id;
-});
+
 app.get("/loading", function(req, res){
   res.render("loading");
-}) 
+})
+
 function getSearchTerms(){
   // log artist name and track name from array to send "artist name" + "track name" + live to youtube api
   return new Promise(resolve => {
@@ -185,16 +173,12 @@ function getSearchTerms(){
     for (let i = 0; i < songs.length; i++){
       searchTerms.push(songs[i].track.artists[0].name + " " + songs[i].track.name + " live");
     } 
-    console.log(searchTerms);
     resolve();
   })
 }
 
-
 function getYoutubeIds(){
   // use search terms to grab top result for each from youtube
-  return new Promise(resolve => {
-  console.log(searchTerms.length);
   youtubePlaylist = [];
   for (let i = 0; i < searchTerms.length; i++){
     youtube.search.list({
@@ -208,21 +192,12 @@ function getYoutubeIds(){
         if (data) {
           youtubeData = data;
           youtubePlaylist.push(youtubeData.data.items[0].id.videoId);
-        }
-        if (i == youtubePlaylist.length){
-        resolve();
-        }
-      
+        } 
     });
   }
-  
-})
 }
 
-
 app.get("/liveplaylist", function(req, res){
-  console.log("after loading:")
-  console.log(youtubePlaylist);
   res.render("player", {youtubePlaylist: youtubePlaylist});
 });
 

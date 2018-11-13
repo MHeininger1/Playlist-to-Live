@@ -1,16 +1,18 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
         <style>
-            h1{
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-            body{
-                background-color: black;
-            } 
+        h1{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        body{
+            background-color: black;
+            font-family: 'Roboto Slab', serif;
+        } 
            
         #loading1{
             animation: show1 5s;
@@ -21,7 +23,7 @@
            0% {
                opacity: 0;
            }
-           25% {
+           20% {
                opacity: 1;
            }
         }
@@ -34,7 +36,7 @@
            0% {
                opacity: 0;
            }
-           50% {
+           40% {
                opacity: 1;
            }
         }
@@ -47,7 +49,7 @@
            0% {
                opacity: 0;
            }
-           75% {
+           60% {
                opacity: 1;
            }
         }
@@ -70,30 +72,20 @@
         }
 
         @keyframes show5 {
-           95%{
+           100%{
                opacity: 1;
-           }
-           
+           }   
         }
         </style>
-        
-
-
     </head>
     <script>
         setTimeout(function () {
            window.location = "/liveplaylist";
         }, 5000)
     </script>
-   
     <body>
         <div class="bg-success">
             <h1 class="text-success">Building your playlist<span id="loading1">.</span><span id="loading2">.</span><span id="loading3">.</span><span id="loading4">.</span><span id="loading5">✔</span></h1>
         </div>
-        
-
     </body>
-    
-
-
 </html>
