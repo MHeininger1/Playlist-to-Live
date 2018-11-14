@@ -7,15 +7,15 @@ const cors = require("cors");
 const {google} = require('googleapis');
 var youtube = google.youtube({
   version: 'v3',
-  auth: "AIzaSyAqLc08L_xp-LB4VRUUM0aLIzR9DlX2LWs"
+  auth: "secret"
 });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
      .use(cors())
      .use(cookieParser());
 app.use('/images', express.static(__dirname + '/Images'));
-const client_id = '28c2c40fbdb6448b9a2ad2f3de6319ce';
-const client_secret = '823ca0625dc847499140590795ff14ce';
+const client_id = 'secret';
+const client_secret = 'secret';
 const redirect_uri = 'http://localhost:3000/callback';
 let access_token = '';
 let playlistInfo = [];
