@@ -7,7 +7,7 @@ const cors = require("cors");
 const {google} = require('googleapis');
 var youtube = google.youtube({
   version: 'v3',
-  auth: "secret
+  auth: "secret"
 });
 app.set("view engine", "ejs");
 
