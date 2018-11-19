@@ -5,13 +5,14 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <style>
       #player{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        margin-top: 100px;
+        margin-bottom: 200px;
+        margin-left: 50%;
+        transform: translate(-50%);
         border-style: solid;
         border-width: 10px;
         border-radius: 10px;
+        
       }
       h1{
         margin: auto;
@@ -25,21 +26,33 @@
         font-family: 'Roboto Slab', serif;
       }
       p{
-        position: fixed;
-        top: 90%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        margin-top: 20px;
         font-size: 18px;
       }
-     
-
+      .btn{
+                height: 80px;
+                font-size: 25px;
+            }
+      #info{
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%);
+        text-align: center;
+        background-color: black;
+        width: 100%;
+        padding-top: 10px;
+      }
     </style>
   </head>
   <body>
     <h1 class="text-success">Your Playlist, Live!</h1>
     <div id="player" class="border-success"></div>
-    <p class="text-success">Note: Studio versions will play if our search terms did not find a live video</p>
-    
+    <div id="info">
+      <button onclick=location.href='http://playlist2.live/login' type="button" class="btn btn-success">Choose new playlist</button>
+      <p class="text-success">Note: Studio versions will play if our search terms did not find a live video</p>
+    </div>
+   
     <% if (youtubePlaylist) { %>
       <script>
          let playlist = JSON.parse('<%- JSON.stringify(youtubePlaylist) %>');
